@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12" style="margin-top: 20px">
+            <mat-card style="margin-top: 50px">
+                <form class="form-center" #f="ngForm" (ngSubmit)="f.form.valid&&register()">
+                    <mat-error class="alert alert-primary">{{status}}</mat-error>
+<!--                    NAME-->
+                    <mat-form-field style="width: 350px" appearance="outline">
+                        <mat-label>Name: </mat-label>
+                        <input [(ngModel)]="form.name" name="name" #name="ngModel" matInput placeholder="Placeholder"
+                               required minlength="3" maxlength="60">
+                        <mat-icon color="accent" matSuffix>sentiment_very_satisfied</mat-icon>
+                        <mat-error *ngIf="name.hasError('required')">Tên là bắt buộc</mat-error>
+                        <mat-error *ngIf="name.hasError('minlength')">Tên có ít nhất 3 ký tự!</mat-error>
+                    </mat-form-field>
+                    <br>
+<!--                    USERNAME-->
+                    <mat-form-field style="width: 350px" appearance="outline">
+                        <mat-label>Username: </mat-label>
+                        <input [(ngModel)]="form.username" name="username" #username="ngModel" matInput
+                               placeholder="Placeholder" required minlength="3" maxlength="60">
+                        <mat-icon color="accent" matSuffix>account_circle</mat-icon>
+                        <mat-error *ngIf="username.hasError('required')">Tên người dùng là bắt buộc</mat-error>
+                        <mat-error *ngIf="username.hasError('minlength')">Tên đăng nhập có ít nhất 3 ký tự!</mat-error>
+                    </mat-form-field>
+                    <br>
+<!--                    EMAIL-->
+                    <mat-form-field style="width: 350px" appearance="outline">
+                        <mat-label>Email: </mat-label>
+                        <input [(ngModel)]="form.email" name="email" [formControl]="emailFormControl" matInput
+                               placeholder="Placeholder" required minlength="3" maxlength="60">
+                        <mat-icon color="accent" matSuffix>email</mat-icon>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">Email là bắt buộc</mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('minlength')">Email nhập đúng định dạng</mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('email')">Email không đúng định dạng</mat-error>
+                    </mat-form-field>
+                    <br>
+<!--                    PASSWORD-->
+                    <mat-form-field style="width: 350px" appearance="outline">
+                        <mat-label>Enter your password</mat-label>
+                        <input [(ngModel)]="form.password" name="password" #password="ngModel" matInput
+                               [type]="hide ? 'password' : 'text'" required minlength="6" maxlength="100">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
+                            <mat-icon color="accent">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="password.hasError('required')">mật khẩu là bắt buộc</mat-error>
+                        <mat-error *ngIf="password.hasError('minlength')">Mật khẩu tối thiểu 6 kí tự</mat-error>
+                    </mat-form-field>
+                    <br>
+<!--                    BUTTON-->
+                    <button mat-stroked-button color="accent" class="mat-button-toggle-group btn-outline-primary">
+                        Register
+                        <mat-icon color="accent" matSuffix>add_circle_outline</mat-icon>
+                    </button>
+
+                </form>
+
+            </mat-card>
+        </div>
+
+    </div>
+
+</div>
