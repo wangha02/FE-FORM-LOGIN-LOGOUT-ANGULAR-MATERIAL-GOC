@@ -21,7 +21,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.status = localStorage.getItem('SUCCESS_KEY');
+    console.log('check---------->', localStorage.getItem('SUCCESS_KEY'));
+    if (localStorage.getItem('SUCCESS_KEY') != null) {
+      this.status = localStorage.getItem('SUCCESS_KEY');
+    } else {
+      this.status = 'Đăng nhập thất bại!';
+    }
   }
 
   login() {
@@ -37,9 +42,9 @@ export class LoginComponent implements OnInit {
         this.tokenService.setAvatar(data.avatar);
         this.tokenService.setRole(data.roles);
         localStorage.removeItem('SUCCESS_KEY');
-        this.router.navigate(['home']).then(() =>{
+        this.router.navigate(['home']).then(() => {
           location.reload();
-        })
+        });
       }
       // @ts-ignore
       // tslint:disable-next-line:triple-equals
