@@ -10,8 +10,14 @@ import {JwtRP} from '../model/JwtRP';
   providedIn: 'root'
 })
 export class AuthService {
-  private API_SIGNUP = environment.API_LOCAL + 'signup';
-  private API_SIGNIN = environment.API_LOCAL + 'signin';
+
+  // API_LOCAL
+  // private API_SIGNUP = environment.API_LOCAL + 'signup';
+  // private API_SIGNIN = environment.API_LOCAL + 'signin';
+
+// API_SEVER
+  private API_SIGNUP = environment.API_SEVER + 'signup';
+  private API_SIGNIN = environment.API_SEVER + 'signin';
 
   constructor(private http: HttpClient) {
   }

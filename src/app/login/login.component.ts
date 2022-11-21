@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.status = localStorage.getItem('SUCCESS_KEY');
   }
 
   login() {
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
         this.tokenService.setName(data.name);
         this.tokenService.setAvatar(data.avatar);
         this.tokenService.setRole(data.roles);
-        this.router.navigate(['profile']).then(() =>{
+        localStorage.removeItem('SUCCESS_KEY');
+        this.router.navigate(['home']).then(() =>{
           location.reload();
         })
       }
