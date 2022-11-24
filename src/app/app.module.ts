@@ -15,7 +15,7 @@ import {MatCardModule} from '@angular/material/card';
 import {HomeComponent} from './pages/home/home.component';
 import {GettingStartedComponent} from './pages/gettingstarted/gettingstarted.component';
 
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxAudioPlayerModule} from 'projects/ngx-audio-player/src/public_api';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -37,6 +37,11 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment.prod';
 import { SingerAvatarComponent } from './upload/singer-avatar/singer-avatar.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MutilpleAvatarComponent } from './upload/mutilple-avatar/mutilple-avatar.component';
+import {AuthInterceptor} from './service/auth.interceptor';
+import { UpdateAvatarComponent } from './profile/update-avatar/update-avatar.component';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog/dialog.component';
 
 export const appRoutes: Routes = [
   {path: '', component: LoginComponent, data: {title: 'Home'}},
@@ -48,11 +53,16 @@ export const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'profile', component: ProfileComponent,
+  children: [ //children là con của profile
+    {
+      path: 'update/avatar', component: UpdateAvatarComponent
+    }
+  ]}
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, GettingStartedComponent, RegisterComponent, LoginComponent, ProfileComponent, ParentInputComponent, ChildInputComponent, ParentOutputComponent, ChildOutputComponent, SingerAvatarComponent],
+  declarations: [AppComponent, HomeComponent, GettingStartedComponent, RegisterComponent, LoginComponent, ProfileComponent, ParentInputComponent, ChildInputComponent, ParentOutputComponent, ChildOutputComponent, SingerAvatarComponent, MutilpleAvatarComponent, UpdateAvatarComponent, DialogComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -67,11 +77,17 @@ export const appRoutes: Routes = [
     NavBarModule, FooterModule,
     NgxAudioPlayerModule,
     MatInputModule,
+    MatDialogModule,
+    FormsModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     RouterModule.forRoot(appRoutes, {useHash: false}), MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatProgressBarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide:HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

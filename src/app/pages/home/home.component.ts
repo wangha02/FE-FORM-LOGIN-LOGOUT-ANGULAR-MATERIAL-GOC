@@ -181,4 +181,13 @@ export class HomeComponent {
     this.msaapDisablePositionSlider = event.checked;
   }
   // End: Required for demo purpose
+  uploadAvatar($event: String) {
+    console.log('avatar',$event);
+  }
+
+  upMultiLoadAvatar($event: String[]) {
+    console.log('avatar',$event);
+
+  }
+
 }
