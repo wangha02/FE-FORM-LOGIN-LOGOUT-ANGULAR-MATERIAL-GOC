@@ -6,6 +6,9 @@
                 <button mat-stroked-button color="primary" class="mat-button-toggle-group btn-outline-danger">logOut
                     <mat-icon color="accent" matSuffix (click)="logOut()">logout</mat-icon>
                 </button>
+                <button *ngIf="checkAdmin" mat-stroked-button color="primary" class="mat-button-toggle-group btn-outline-danger">Admin Manager
+                    <mat-icon color="accent" matSuffix routerLink="admin" >admin_panel_settings</mat-icon>
+                </button>
                 <router-outlet></router-outlet>
             </mat-card>
         </div>
