@@ -48,6 +48,7 @@ export class TokenService {
   }
 
   public getRole(): string[] {
+    this.roles = [];
     if (this.getToken()) {
       JSON.parse(localStorage.getItem(ROLE_KEY)).forEach(role => {
         this.roles.push(role.authority);

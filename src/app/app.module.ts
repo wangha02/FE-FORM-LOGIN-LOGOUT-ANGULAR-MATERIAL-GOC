@@ -35,13 +35,19 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 // @ts-ignore
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment.prod';
-import { SingerAvatarComponent } from './upload/singer-avatar/singer-avatar.component';
+import {SingerAvatarComponent} from './upload/singer-avatar/singer-avatar.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { MutilpleAvatarComponent } from './upload/mutilple-avatar/mutilple-avatar.component';
+import {MutilpleAvatarComponent} from './upload/mutilple-avatar/mutilple-avatar.component';
 import {AuthInterceptor} from './service/auth.interceptor';
-import { UpdateAvatarComponent } from './profile/update-avatar/update-avatar.component';
+import {UpdateAvatarComponent} from './profile/update-avatar/update-avatar.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import { DialogComponent } from './dialog/dialog/dialog.component';
+import {DialogComponent} from './dialog/dialog/dialog.component';
+import {AuthGuard} from './security/auth.guard';
+import {AdminManageComponent} from './profile/admin-manage/admin-manage.component';
+import {AdminGuard} from './security/admin.guard';
+import { CategoryAppComponent } from './category-app/category-app.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
 
 export const appRoutes: Routes = [
   {path: '', component: LoginComponent, data: {title: 'Home'}},
@@ -52,17 +58,23 @@ export const appRoutes: Routes = [
   },
   {path: 'home', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'cate', component: CategoryAppComponent}, //category
   {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent,
-  children: [ //children là con của profile
-    {
-      path: 'update/avatar', component: UpdateAvatarComponent
-    }
-  ]}
+  {
+    path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],
+    children: [ //children là con của profile
+      {
+        path: 'update/avatar', component: UpdateAvatarComponent
+      },
+      {
+        path: 'admin', component: AdminManageComponent, canActivate: [AdminGuard]
+      }
+    ]
+  }
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, GettingStartedComponent, RegisterComponent, LoginComponent, ProfileComponent, ParentInputComponent, ChildInputComponent, ParentOutputComponent, ChildOutputComponent, SingerAvatarComponent, MutilpleAvatarComponent, UpdateAvatarComponent, DialogComponent],
+  declarations: [AppComponent, HomeComponent, GettingStartedComponent, RegisterComponent, LoginComponent, ProfileComponent, ParentInputComponent, ChildInputComponent, ParentOutputComponent, ChildOutputComponent, SingerAvatarComponent, MutilpleAvatarComponent, UpdateAvatarComponent, DialogComponent, AdminManageComponent, CategoryAppComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -81,11 +93,11 @@ export const appRoutes: Routes = [
     FormsModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    RouterModule.forRoot(appRoutes, {useHash: false}), MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatProgressBarModule
+    RouterModule.forRoot(appRoutes, {useHash: false}), MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatProgressBarModule, MatPaginatorModule, MatTableModule
   ],
   providers: [
     {
-      provide:HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
     }
   ],
   bootstrap: [AppComponent]
