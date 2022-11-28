@@ -1,8 +1,11 @@
-export class CategoryModel{
-  name : string;
+export class CategoryModel {
+  id: number;
+  name: string;
   avatar: string;
 
-  constructor(avatar : string) {
+
+  constructor(id: number, name: string, avatar: string) {
+    this.id = id;
     this.name = name;
     this.avatar = avatar;
   }

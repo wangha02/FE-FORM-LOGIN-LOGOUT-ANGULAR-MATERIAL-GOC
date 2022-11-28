@@ -45,9 +45,10 @@ import {DialogComponent} from './dialog/dialog/dialog.component';
 import {AuthGuard} from './security/auth.guard';
 import {AdminManageComponent} from './profile/admin-manage/admin-manage.component';
 import {AdminGuard} from './security/admin.guard';
-import { CategoryAppComponent } from './category-app/category-app.component';
+import {CategoryAppComponent} from './category-app/category-app.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import {CreateCategoryComponent} from './create-category/create-category.component';
 
 export const appRoutes: Routes = [
   {path: '', component: LoginComponent, data: {title: 'Home'}},
@@ -59,6 +60,7 @@ export const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'cate', component: CategoryAppComponent}, //category
+  {path: 'create-category', component: CreateCategoryComponent},
   {path: 'login', component: LoginComponent},
   {
     path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],
@@ -74,7 +76,7 @@ export const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, GettingStartedComponent, RegisterComponent, LoginComponent, ProfileComponent, ParentInputComponent, ChildInputComponent, ParentOutputComponent, ChildOutputComponent, SingerAvatarComponent, MutilpleAvatarComponent, UpdateAvatarComponent, DialogComponent, AdminManageComponent, CategoryAppComponent],
+  declarations: [AppComponent, HomeComponent, GettingStartedComponent, RegisterComponent, LoginComponent, ProfileComponent, ParentInputComponent, ChildInputComponent, ParentOutputComponent, ChildOutputComponent, SingerAvatarComponent, MutilpleAvatarComponent, UpdateAvatarComponent, DialogComponent, AdminManageComponent, CategoryAppComponent, CreateCategoryComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

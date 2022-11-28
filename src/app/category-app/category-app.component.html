@@ -3,6 +3,9 @@
         <div class="col-12" style="margin-top: 20px">
             <mat-card style="margin-top: 50px">
                 <div class="mat-elevation-z8">
+                    <button routerLink="/create-category" mat-stroked-button color="accent" class="mat-button-toggle-group btn-outline-primary">Create Category
+                        <mat-icon color="accent" matSuffix>category</mat-icon>
+                    </button>
                     <table mat-table [dataSource]="dataSource">
 
                         <ng-container matColumnDef="name">
